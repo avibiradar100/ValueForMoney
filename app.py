@@ -35,7 +35,7 @@ resolution = st.selectbox('Screen Resolution',['1920x1080','1366x768','1600x900'
 #cpu
 cpu = st.selectbox('CPU',df['Cpu brand'].unique())
 
-hdd = st.selectbox('HDD(in GB)',[0,128,256,512,1024,2048])
+hdd = st.selectbox('HDD(in GB)',[0,500,1000,2000])
 
 ssd = st.selectbox('SSD(in GB)',[0,8,128,256,512,1024])
 
