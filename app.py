@@ -15,10 +15,10 @@ company = st.selectbox('Brand',df['Company'].unique())
 type = st.selectbox('Type',df['TypeName'].unique())
 
 # Ram
-ram = st.selectbox('RAM(in GB)',[2,4,6,8,12,16,24,32,64])
+ram = st.selectbox('RAM(in GB)',df['Ram'].unique())
 
 # weight
-weight = st.number_input('Weight of the Laptop')
+weight = st.selectbox('Weight of the Laptop(kg)',[1.0,1.5,1.75,2.0,2.5,3,3.5])
 
 # Touchscreen
 touchscreen = st.selectbox('Touchscreen',['No','Yes'])
@@ -27,7 +27,7 @@ touchscreen = st.selectbox('Touchscreen',['No','Yes'])
 ips = st.selectbox('IPS',['No','Yes'])
 
 # screen size
-screen_size = st.number_input('Screen Size')
+screen_size = st.selectbox('Screen Size',[14,14.5,15,15.6,16,17,17.3])
 
 # resolution
 resolution = st.selectbox('Screen Resolution',['1920x1080','1366x768','1600x900','3840x2160','3200x1800','2880x1800','2560x1600','2560x1440','2304x1440'])
@@ -35,7 +35,7 @@ resolution = st.selectbox('Screen Resolution',['1920x1080','1366x768','1600x900'
 #cpu
 cpu = st.selectbox('CPU',df['Cpu brand'].unique())
 
-hdd = st.selectbox('HDD(in GB)',[0,500,1000,2000])
+hdd = st.selectbox('HDD(in GB)',[500,1000,2000])
 
 ssd = st.selectbox('SSD(in GB)',[0,8,128,256,512,1024])
 
@@ -58,9 +58,8 @@ if st.button('Predict Price'):
 
     X_res = int(resolution.split('x')[0])
     Y_res = int(resolution.split('x')[1])
-    ppi = ((X_res**2) + (Y_res**2))**0.5/screen_size
+    ppi = ((X_res*2) + (Y_res*2))*0.5/screen_size
     query = np.array([company,type,ram,weight,touchscreen,ips,ppi,cpu,hdd,ssd,gpu,os])
 
     query = query.reshape(1,12)
     st.title("The predicted price of this configuration is " + str(int(np.exp(pipe.predict(query)[0]))))
-
